@@ -2,10 +2,6 @@ from telegram.ext import Updater, MessageHandler,Filters,  CommandHandler,Callba
 from telegram import Update
 from functions import *
 
-
-
-
-
 conversation_handler=ConversationHandler(
 
     entry_points=[
@@ -28,23 +24,11 @@ conversation_handler=ConversationHandler(
         'state_main' : [
             CallbackQueryHandler(command_category)
         ],
-        'state_history' : [
-            CallbackQueryHandler(command_history)
-        ],
-        'state_basket' : [
-            CallbackQueryHandler(command_basket)
-        ],
         'state_submain' : [
             CallbackQueryHandler(command_products)
         ],
         'state_product' : [
             CallbackQueryHandler(command_product)
-        ],
-        'state_ordering' : [
-            CallbackQueryHandler(command_ordering)
-        ],
-        'state_add_basket' : [
-            CallbackQueryHandler(command_basket)
         ]
     },
 

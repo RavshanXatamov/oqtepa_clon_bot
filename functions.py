@@ -70,22 +70,24 @@ def command_category(update: Update, context: CallbackContext):
     query.message.delete()
     if data=='menu':
         query.message.reply_text("Buyurtmani birga joylashtiramizmi? 🤗",reply_markup=get_all_categories())
-        return 'state_submain'
-    elif data=='setting':
-        query.message.reply_text(text="O'zigizga qulay bo'lgan tilini tanlang ",reply_markup=setting_button())
-        return 'state_change_language'
-    elif data=='carrier':
-        query.message.reply_text(text="HR hizmatimiz bilan bo'lnishingiz uchun ************ raqmga tel qiling")
-        return 'state_hr_department'
+        return 'state_main'
+    # elif data=='setting':
+    #     query.message.reply_text(text="O'zigizga qulay bo'lgan tilini tanlang ",reply_markup=setting_button())
+    #     return 'state_change_language'
+    # elif data=='carrier':
+    #     query.message.reply_text(text="HR hizmatimiz bilan bo'lnishingiz uchun ************ raqmga tel qiling")
+    #     return 'state_hr_department'
 
 def command_products(update: Update, context: CallbackContext):
     query = update.callback_query
     data = query.data
     query.message.delete()
     if data=='history':
-        return 'state_history'
+        # return 'state_history'
+        pass
     elif data=='go_basket':
-        return 'state_basket'
+        # return 'state_basket'
+        pass
     elif data.isdigit():
         context.user_data['cat_id'] = data
         context.user_data['son'] = ''
@@ -100,49 +102,18 @@ def command_product(update : Update,context: CallbackContext):
     if data.isdigit():
         context.user_data['product_id']=data
         query.message.reply_photo(open("Image_story/lavash_category.jpg", "rb"),caption="Assalom alaykum",reply_markup=get_order())
-        return 'state_ordering'
-
+        # return 'state_ordering'
+        pass
     elif data == 'stored_item':
         pass
-        return 'state_basket'
+        # return 'state_basket'
 
     elif data=='back':
-        return 'state_submain'
+        # return 'state_submain'
+
+        pass
 
 
-def command_ordering(update: Update, context: CallbackContext):
-    query = update.callback_query
-    data =query.data
 
-    if data.isdigit():
-        son = '0'
-        if context.user_data['son'] == '0':
-            if context.user_data['son'] == '0':
-                context.user_data['0'] = ''
-            son = context.user_data['son'] + data
-            context.user_data['son'] = son
-
-        elif data != '0' and not (context.user_data['son']):
-            son = data
-            son += context.user_data['son']
-            context.user_data['son']=son
-            query.message.reply_text('Calculation process', reply_markup=get_ordering(context.user_data['son']))
-    elif data=='delete':
-        son=context.user_data['son']
-        context.user_data['son']=son[:-1]
-    elif data=='go_tobasket':
-        return 'state_basket'
-    elif data=='back':
-        return 'state_submain'
-
-def command_history(update : Update,context: CallbackContext):
-    pass
-def command_basket(update : Update, context : CallbackContext):
-    query=update.callback_query
-    data=query.data
-    product=get_ordering(1)
-    query.message.reply_photo(open("Image_story/lavash_category.jpg", "rb"),caption=f"{product[2]}\n"
-                                                                                    f"narx :{product[3]}\n"
-                                                                                    f"miqdor : {product[4]*product[3]}",reply_markup=basket_button())
 
 

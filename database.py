@@ -1,12 +1,10 @@
 import sqlite3
 from sqlite3 import connect
 
-
-
 def create_table_users():
-    cursor.execute("""
     conn = connect('main.db')
     cursor = conn.cursor()
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY UNIQUE ,
     telegram_id INTEGER , 
@@ -143,16 +141,7 @@ def add_user(telegram_id, full_name, first_name, phone, viloyat):
     """)
     conn.commit()
 
-def check_user(telegram_id):
-    conn=connect('main.db')
-    cursor=conn.cursor()
-    cursor.execute(f"""
-    select * from users 
-    where telegram_id={telegram_id}
-    
-""")
-    data=cursor.fetchone()
-    return data
+
 def get_order_details(telegram_id):
     conn = connect('main.db')
     cursor = conn.cursor()
@@ -170,4 +159,5 @@ def put_order_details(product_id,product_name,unit_price,quantity,status):
     insert into order_detail (product_id,product_name,unit_price,quantity,status)
     values ({product_id},{product_name},{unit_price},{quantity},{status})
     """)
+
     conn.commit()
